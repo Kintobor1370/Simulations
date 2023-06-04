@@ -5,8 +5,24 @@ library (MASS)
 library (mnormt)
 library(msm)
 
-sw=0.05
-sm=0.05
+experiment = 'c'
+switch(experiment, 
+       a = {
+         sw=0.15
+         sm=0.15
+         filename = "step_01_a.csv"
+       },
+       b = {
+         sw=0.05
+         sm=0.05
+         filename = "step_01_b.csv"
+       },
+       c = {
+         sw = 0.015
+         sm = 0.15
+         filename = "step_01_c.csv"
+       }
+)
 
 death_radius_cutoff = sw*5
 birth_radius_cutoff = sm*5
@@ -33,7 +49,6 @@ ggplot(sim_results$population,aes(x=time,y=pop))+
 ggplot(head(sim_results$time_steps, n=1000),aes(x=time,y=pop))+
   geom_line()
 
-filename = "step_01_2.csv"
 write.csv(sim_results[["time_steps"]], file = filename)
 
 #ggplot(sim_results$pattern,aes(x=x))+
